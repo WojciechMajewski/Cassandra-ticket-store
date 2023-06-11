@@ -1,0 +1,13 @@
+keyspace: opener
+table: scene
+
+queries:
+    concurrent1:
+      cql: SELECT * FROM opener.scene
+      fields: samerow
+    concurrent2:
+      cql: SELECT * FROM opener.scene
+      fields: samerow
+    concurrent3:
+      cql: SELECT * FROM opener.scene
+      fields: samerow

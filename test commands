@@ -1,0 +1,11 @@
+command for test 1:
+/opt/cassandra/tools/bin/cassandra-stress user profile=tests12.yaml "ops(concurrent1=1, concurrent2=0, concurrent3=0)" no-warmup cl=QUORUM -rate threads=1 -graph file=results1.html title="Graph"
+
+command for test 2:
+/opt/cassandra/tools/bin/cassandra-stress user profile=tests12.yaml "ops(concurrent1=1, concurrent2=1, concurrent3=1)" no-warmup cl=QUORUM -rate threads=3 -graph file=results2.html title="Graph"
+
+command for test 3:
+/opt/cassandra/tools/bin/cassandra-stress user profile=test34.yaml duration=60s ops(insert=3, read1=1) no-warmup cl=QUORUM -rate threads=3 -graph file=results4.html title="Graph"
+
+command for test 4:
+/opt/cassandra/tools/bin/cassandra-stress user profile=test34.yaml duration=60s ops(insert=3, read1=1, delete1=1) no-warmup cl=QUORUM -rate threads=3 -graph file=results4.html title="Graph"

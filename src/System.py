@@ -14,37 +14,25 @@ class MainMenu:
     def main(self):
         while(True):
             title = 'Please choose what you want to do on this beautiful day'
-            options = ['List all scenes and concerts', 'Buy a ticket', 'See ticket', 'Sell ticket', 'Update ticketholder', 'Stress test 1', 'Stress test 2', 'Stress test 3', 'Stress test 4', 'quit']
+            options = ['List all scenes and concerts', 'Buy a ticket', 'See ticket', 'Sell ticket', 'Update ticketholder', 'quit']
             option, index = pick(options, title, indicator='=>', default_index=0)
 
             if index == 0:
                 self.list_all()
 
-            if index == 1:
+            elif index == 1:
                 self.buy_ticket()
 
-            if index == 2:
+            elif index == 2:
                 self.view_ticket()
 
-            if index == 3:
+            elif index == 3:
                 self.sell_ticket()
 
-            if index == 4:
+            elif index == 4:
                 self.update_ticket()
-
-            if index == 5:
-                self.stress_test1()
-
-            if index == 6:
-                print('here i will stress test 2')
-
-            if index == 7:
-                print('here i will stress test 3')
-
-            if index == 8:
-                print('here i will stress test 4')
             
-            if index == 9:
+            else:
                 break
 
     def list_all(self):
@@ -171,18 +159,3 @@ class MainMenu:
             print("You have successfully sold a ticket")
         else:
             print("No such email bought a ticket")
-
-    def stress_test1(self):
-        rep_number = 1000
-        print(f"I'm stress testing by asking for all the records {rep_number} times very quickly")
-        start = time.time()
-        for i in range(rep_number):
-            query = self.QE.SELECT_ALL('concert')
-            res = self.client.execute_query(query)
-            query = self.QE.SELECT_ALL('scene')
-            res = self.client.execute_query(query)
-        end = time.time() - start
-        print(f"Was I quick enough? I completed the given task in {end:.2f}s")
-
-    def stress_test2(self):
-        print('stress test 2')

@@ -1,0 +1,27 @@
+keyspace: opener
+table: ticket
+
+columnspec:
+  - name: ticket_id
+    size: uniform(1..100)
+    population: uniform(1..1M)
+  - name: ticket_nr
+    size: uniform(1..40)
+  - name: concert_id
+    size: uniform(1..100)
+  - name: name
+    size: uniform(10..30)
+  - name: email
+    size: uniform(16..50)
+
+insert:
+  partitions: fixed(10)
+  batchtype: UNLOGGED
+
+queries:
+   read1:
+      cql: select * from ticket where name = ? LIMIT 100 ALLOW FILTERING
+      fields: samerow
+   delete1:
+      cql: delete from ticket where ticket_id = ? IF EXISTS
+      fields: samerow

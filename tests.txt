@@ -1,0 +1,39 @@
+test1.yaml:
+
+
+keyspace: opener
+table: scene
+
+queries:
+    concurrentreadevent:
+      cql: SELECT * FROM opener.scene
+      fields: samerow
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+docker bash:
+
+/opt/cassandra/tools/bin/cassandra-stress user profile=test1.yaml "ops(concurrentreadevent=1)" no-warmup cl=QUORUM -rate threads=1 -graph file=results1.html
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+test2.yaml:
+
+
+keyspace: opener
+table: scene
+
+queries:
+    concurrent1:
+      cql: SELECT * FROM opener.scene
+      fields: samerow
+    concurrent2:
+      cql: SELECT * FROM opener.scene
+      fields: samerow
+    concurrent3:
+      cql: SELECT * FROM opener.scene
+      fields: samerow
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+docker bash:
+
+/opt/cassandra/tools/bin/cassandra-stress user profile=test2.yaml "ops(concurrent1=1,concurrent2=1,concurrent3=1)" no-warmup cl=QUORUM -rate threads=3 -graph file=results2.html

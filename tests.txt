@@ -37,3 +37,43 @@ queries:
 docker bash:
 
 /opt/cassandra/tools/bin/cassandra-stress user profile=test2.yaml "ops(concurrent1=1,concurrent2=1,concurrent3=1)" no-warmup cl=QUORUM -rate threads=3 -graph file=results2.html
+
+tests34.yaml:
+
+
+keyspace: opener
+table: ticket
+
+columnspec:
+  - name: ticket_id
+    size: uniform(1..100)
+    population: uniform(1..1M)
+  - name: ticket_nr
+    size: uniform(1..40)
+  - name: concert_id
+    size: uniform(1..100)
+  - name: name
+    size: uniform(10..30)
+  - name: email
+    size: uniform(16..50)
+
+insert:
+  partitions: fixed(10)
+  batchtype: UNLOGGED
+
+queries:
+   read1:
+      cql: select * from ticket where name = ? LIMIT 100 ALLOW FILTERING
+      fields: samerow
+   delete1:
+      cql: delete from ticket where ticket_id = ? IF EXISTS
+      fields: samerow
+      
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+docker bash:
+
+command for test 3:
+/opt/cassandra/tools/bin/cassandra-stress user profile=test34.yaml duration=60s ops(insert=3,read1=1) no-warmup cl=QUORUM -rate threads=3 -graph file=results4.html title="Graph"
+
+command for test 4:
+/opt/cassandra/tools/bin/cassandra-stress user profile=test34.yaml duration=60s ops(insert=3,read1=1, delete1=1) no-warmup cl=QUORUM -rate threads=3 -graph file=results4.html title="Graph"

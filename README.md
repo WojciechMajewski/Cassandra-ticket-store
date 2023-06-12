@@ -55,3 +55,6 @@ And in case of errors, try:
 >docker rm cass3
 
 after which go back to step 1 above.
+
+### Stress tests
+To run the stress tests using cassandra-stress, the containers must be running, and .yaml files from this repository must be created in the docker container cass1. After that running one of the commands included in a .txt file in this repository the specific stress test will be performed and saved as a .html graph.

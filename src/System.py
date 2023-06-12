@@ -81,7 +81,8 @@ class MainMenu:
         if concert_query is not None and len(concert_query) > 0:
             title = 'Which ticket number would you like?'
             option, ticket_nr = pick(concert_query, title, indicator='=>', default_index=0)
-            concert_query.remove(concert_query[ticket_nr])
+            ticket_nr = concert_query[ticket_nr]
+            concert_query.remove(ticket_nr)
             query = self.QE.UPDATE('concert', 'available_tickets', 'list', concert_query, 'concert_id', 'UUID', concert_id)
             self.client.execute_query(query)
             name = input('Please enter your name:')
@@ -94,7 +95,7 @@ class MainMenu:
                     original_email = False
                     self.emails_used.add(email)
             ticket_id = uuid.uuid4()
-            values = [ticket_id, concert_query[ticket_nr], concert_id, name, email]
+            values = [ticket_id, ticket_nr, concert_id, name, email]
             table_cols = ['ticket_id', 'ticket_nr', 'concert_id', 'name', 'email']
             col_types = ['UUID', 'int', 'UUID', 'text', 'text']
             query = self.QE.INSERT('ticket', table_cols, col_types, values)
